@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "targets": [
+      "taskapi"
+    ],
+    "ignore": [],
+    "source": "functions"
+  },
+  "client": {
+    "source": "task-manager-app",
+    "plugin": "zcatalyst-cli-plugin-react"
+  }
+}

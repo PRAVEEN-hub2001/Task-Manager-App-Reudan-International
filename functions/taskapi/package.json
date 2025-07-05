@@ -1,0 +1,11 @@
+{
+	"name": "taskapi",
+	"version": "1.0.0",
+	"main": "index.js",
+	"author": "",
+	"dependencies": {
+		"express": "^5.1.0",
+		"yup": "^1.6.1",
+		"zcatalyst-sdk-node": "latest"
+	}
+}
