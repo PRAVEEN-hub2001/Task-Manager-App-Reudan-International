@@ -1,6 +1,14 @@
 const getAllTasks = async (req, res, next) => {
   try {
-    const tasks = await req.catalyst.datastore().table('Tasks').getAllRows();
+    const user = await req.catalyst.userManagement().getCurrentUser();
+    const query = {
+      search: {
+        column: 'user_id',
+        value: user.user_id
+      }
+    };
+
+    const tasks = await req.catalyst.datastore().table('Tasks').getAllRows(query);
     res.status(200).json(tasks);
   } catch (err) {
     next(err);
@@ -9,7 +17,10 @@ const getAllTasks = async (req, res, next) => {
 
 const createTask = async (req, res) => {
   try {
-    const task = await req.catalyst.datastore().table('Tasks').insertRow(req.body);
+    const user = await req.catalyst.userManagement().getCurrentUser();
+    const taskData = { ...req.body, user_id: user.user_id };
+
+    const task = await req.catalyst.datastore().table('Tasks').insertRow(taskData);
     res.status(201).json({ message: "Task created", task });
   } catch (err) {
     next(err);

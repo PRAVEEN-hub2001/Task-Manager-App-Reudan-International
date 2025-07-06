@@ -1,8 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import TaskForm from './components/TaskForm';
 import { Button, Col, Container, Form, Navbar, Row } from 'react-bootstrap';
 import TaskList from './components/TaskList';
+
+declare global {
+  interface Window {
+    catalyst: any;
+  }
+}
+const redirectURL = "/__catalyst/auth/login";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -22,12 +29,34 @@ function App() {
     setShowModal(true);
   }
 
+  const logout = () => {
+    window.catalyst.auth.signOut(redirectURL);
+  }
+
+  useEffect(() => {
+    const initCatalyst = async () => {
+      try {
+        const result: any = await window.catalyst.auth.isUserAuthenticated();
+        if (!result.content)
+          window.location.href = redirectURL;
+      } catch (error) {
+        window.location.href = redirectURL;
+        console.error('Catalyst initialization failed:', error);
+      }
+    };
+
+    initCatalyst();
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>
           Task Manager App
         </h1>
+        <Button onClick={logout} title='logout' className='position-absolute end-0'>
+          <i className="bi bi-box-arrow-right"></i>
+        </Button>
       </header>
 
       <Navbar className="bg-body-tertiary py-3 rounded-3">
@@ -56,7 +85,7 @@ function App() {
       </Navbar>
 
       <TaskList show={showModal} onEdit={onEdit} search={search} statusFilter={statusFilter} />
-      
+
       {showModal &&
         <TaskForm onClose={onClose} show={showModal} selectedTask={selectedTask} />}
 
