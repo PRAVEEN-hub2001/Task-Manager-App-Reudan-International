@@ -51,7 +51,7 @@ const TaskList: React.FC<TaskListProps> = ({ show, search, statusFilter, onEdit 
         );
     }, [tasks, search, statusFilter]);
 
-    if (!filteredTasks.length) return <h4 className='no-found'>No task found</h4>;
+    if (!filteredTasks.length) return <h4 className='no-found'>No tasks available.</h4>;
 
     return (
         <div className='task-list'>
