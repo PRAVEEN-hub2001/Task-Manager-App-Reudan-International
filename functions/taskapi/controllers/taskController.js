@@ -31,6 +31,13 @@ const updateTask = async (req, res, next) => {
   const { id } = req.params;
 
   try {
+    const user = await req.catalyst.userManagement().getCurrentUser();
+    if (!user) {
+      const error = new Error('Unauthorized');
+      error.statusCode = 401;
+      throw error;
+    }
+
     const table = req.catalyst.datastore().table('Tasks');
     const existing = await table.getRow(id);
 
@@ -39,8 +46,9 @@ const updateTask = async (req, res, next) => {
       error.statusCode = 404;
       throw error;
     }
+    const taskData = { ROWID: id, ...req.body, user_id: user.user_id };
+    const updatedTask = await table.updateRow(taskData);
 
-    const updatedTask = await table.updateRow({ ROWID: id, ...req.body });
     res.status(200).json({ message: "Task updated", updatedTask });
   } catch (err) {
     next(err);
@@ -51,6 +59,13 @@ const deleteTask = async (req, res, next) => {
   const { id } = req.params;
 
   try {
+    const user = await req.catalyst.userManagement().getCurrentUser();
+    if (!user) {
+      const error = new Error('Unauthorized');
+      error.statusCode = 401;
+      throw error;
+    }
+
     const table = req.catalyst.datastore().table('Tasks');
     const existing = await table.getRow(id);
 

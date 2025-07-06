@@ -54,7 +54,7 @@ function App() {
         <h1>
           Task Manager App
         </h1>
-        <Button onClick={logout} title='logout' className='position-absolute end-0'>
+        <Button onClick={logout} title='logout' className='position-absolute end-1'>
           <i className="bi bi-box-arrow-right"></i>
         </Button>
       </header>

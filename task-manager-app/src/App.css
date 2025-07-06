@@ -60,6 +60,10 @@
   background-color: #f4f7fe !important;
 }
 
+.end-1 {
+  right: 1% !important;
+}
+
 @media screen and (max-width: 600px) {
   .task-list {
     width: 100%;

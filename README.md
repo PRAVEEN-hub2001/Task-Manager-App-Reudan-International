@@ -1,6 +1,6 @@
 # 📝 Task Manager App
 
-A simple, scalable task management application built with **React**, **TypeScript**, and **Node.js**, and deployed using **Zoho Catalyst**. The app allows users to create, view, update, and delete tasks, with optional enhancements such as filtering and searching.
+A simple, scalable task management application built with **React**, **TypeScript**, and **Node.js**, and deployed using **Zoho Catalyst**. The app allows users to create, view, update, and delete tasks, with optional enhancements such as filtering, searching and multi-user.
 
 ---
 
@@ -33,6 +33,7 @@ A simple, scalable task management application built with **React**, **TypeScrip
 
 - Filter tasks by status (completed/pending)
 - Search tasks by title
+- Multi-user support via Catalyst Authentication.
 
 ---
 
@@ -91,6 +92,7 @@ Create a Data Store table named Tasks with the following fields:
 | title       | Text       | Yes      | -             |
 | description | Text       | No       | -             |
 | status      | Text       | No       | `pending`     |
+| user_id     | Bigint     | Yes      | -             |
 
 ---
 
